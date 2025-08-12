@@ -38,24 +38,25 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     "rest_framework",
+    "rest_framework.authtoken",
     "drf_spectacular",
     "django_filters",
     "theatre",
     "tickets",
+    "user"
 ]
 
 REST_FRAMEWORK = {
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
     "DEFAULT_AUTHENTICATION_CLASSES": [
-        "rest_framework.authentication.SessionAuthentication",
-        "rest_framework.authentication.BasicAuthentication",
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
     ],
     "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.IsAuthenticatedOrReadOnly"],
     "DEFAULT_FILTER_BACKENDS": ["django_filters.rest_framework.DjangoFilterBackend"],
 }
 SPECTACULAR_SETTINGS = {"TITLE": "Theatre API", "VERSION": "1.0.0"}
 
-AUTH_USER_MODEL = "auth.User"
+AUTH_USER_MODEL = "user.User"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
