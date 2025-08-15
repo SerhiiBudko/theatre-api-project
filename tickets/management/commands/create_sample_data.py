@@ -10,7 +10,6 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         self.stdout.write('Creating sample data...')
 
-        # Create theatre halls
         hall1, created = TheatreHall.objects.get_or_create(
             name="Main Hall",
             defaults={'rows': 20, 'seats_in_row': 25}
@@ -25,7 +24,6 @@ class Command(BaseCommand):
         if created:
             self.stdout.write(f'Created theatre hall: {hall2}')
 
-        # Create genres
         genres_data = [
             "Drama", "Comedy", "Tragedy", "Musical", "Thriller"
         ]
@@ -36,7 +34,6 @@ class Command(BaseCommand):
                 self.stdout.write(f'Created genre: {genre}')
             genres.append(genre)
 
-        # Create actors
         actors_data = [
             ("John", "Doe"),
             ("Jane", "Smith"),
@@ -54,7 +51,6 @@ class Command(BaseCommand):
                 self.stdout.write(f'Created actor: {actor}')
             actors.append(actor)
 
-        # Create plays
         plays_data = [
             {
                 "title": "Hamlet",
@@ -84,18 +80,15 @@ class Command(BaseCommand):
             if created:
                 self.stdout.write(f'Created play: {play}')
                 
-                # Add genres
                 for genre_name in play_data["genres"]:
                     genre = Genre.objects.get(name=genre_name)
                     play.genres.add(genre)
                 
-                # Add actors
                 for actor_name in play_data["actors"]:
                     first_name, last_name = actor_name.split()
                     actor = Actor.objects.get(first_name=first_name, last_name=last_name)
                     play.actors.add(actor)
 
-        # Create performances
         plays = Play.objects.all()
         halls = [hall1, hall2]
         

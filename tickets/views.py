@@ -84,7 +84,7 @@ class ReservationViewSet(mixins.CreateModelMixin,
                     )
         except IntegrityError:
             return Response(
-                {"detail": "Деякі з вибраних місць вже зайняті."},
+                {"detail": "Some of the selected seats are already taken."},
                 status=status.HTTP_409_CONFLICT,
             )
 

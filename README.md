@@ -20,6 +20,28 @@ This project is a REST API for a theatre that allows:
 
 ## Installation and Setup
 
+### Option 1: Docker (Recommended)
+
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd theatre-api-project
+```
+
+2. Run with Docker Compose:
+```bash
+./docker-run.sh
+```
+
+Or manually:
+```bash
+docker-compose up --build
+```
+
+The API will be available at http://localhost:8000/api/
+
+### Option 2: Local Development
+
 1. Clone the repository:
 ```bash
 git clone <repository-url>
@@ -195,6 +217,45 @@ curl -H "Authorization: Bearer YOUR_JWT_TOKEN" \
 - Request rate limiting
 - Swagger API documentation
 - Different access levels for users and administrators
+
+## Docker
+
+### Quick Start with Docker
+
+The easiest way to run the project is using Docker:
+
+```bash
+# Clone the repository
+git clone <repository-url>
+cd theatre-api-project
+
+# Run with Docker Compose
+./docker-run.sh
+```
+
+### Docker Commands
+
+```bash
+# Build and start services
+docker-compose up --build
+
+# Start services in background
+docker-compose up -d
+
+# View logs
+docker-compose logs -f
+
+# Stop services
+docker-compose down
+
+# Rebuild and restart
+docker-compose up --build --force-recreate
+```
+
+### Docker Services
+
+- **Web**: Django application (port 8000)
+- **Database**: PostgreSQL (port 5432)
 
 ## Testing
 
