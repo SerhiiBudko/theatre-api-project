@@ -48,7 +48,7 @@ class PerformanceSerializer(serializers.ModelSerializer):
     play = PlaySerializer(read_only=True)
     play_id = serializers.PrimaryKeyRelatedField(
         queryset=Play.objects.all(),
-        source="plays",
+        source="play",
         write_only=True,
     )
     theatre_hall = TheatreHallSerializer(read_only=True)
@@ -109,10 +109,10 @@ class CreateReservationSerializer(serializers.Serializer):
             row = item.get("row")
             seat = item.get("seat")
             if row is None or seat is None:
-                raise serializers.ValidationError("Кожен елемент має містити 'row' і 'seat'.")
+                raise serializers.ValidationError("Each item must contain 'row' and 'seat'.")
             if row > hall.rows or seat > hall.seats_in_row:
                 raise serializers.ValidationError(
-                    f"Місце r{row}s{seat} виходить за межі залу ({hall.rows}x{hall.seats_in_row})."
+                    f"Seat r{row}s{seat} is out of hall bounds ({hall.rows}x{hall.seats_in_row})."
                 )
             normalized.append({"row": row, "seat": seat})
         attrs["seats"] = normalized

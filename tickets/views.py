@@ -2,6 +2,7 @@ from django.db import transaction, IntegrityError
 from rest_framework import viewsets, mixins, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from .models import TheatreHall, Genre, Actor, Play, Performance, Reservation, Ticket
 from .serializers import (
@@ -10,36 +11,29 @@ from .serializers import (
     ReservationSerializer, CreateReservationSerializer
 )
 
-# простий пермішн: адміни можуть змінювати, інші — тільки читати
-from rest_framework.permissions import BasePermission, SAFE_METHODS
-class IsAdminOrReadOnly(BasePermission):
-    def has_permission(self, request, view):
-        return request.method in SAFE_METHODS or (request.user and request.user.is_staff)
+from rest_framework.permissions import BasePermission, SAFE_METHODS, IsAuthenticated
+from tickets.permissions import IsAdminALLORIsAuthenticatedOrReadOnly
+
 
 class TheatreHallViewSet(viewsets.ModelViewSet):
     queryset = TheatreHall.objects.all()
     serializer_class = TheatreHallSerializer
-    permission_classes = [IsAdminOrReadOnly]
 
 class GenreViewSet(viewsets.ModelViewSet):
     queryset = Genre.objects.all()
     serializer_class = GenreSerializer
-    permission_classes = [IsAdminOrReadOnly]
 
 class ActorViewSet(viewsets.ModelViewSet):
     queryset = Actor.objects.all()
     serializer_class = ActorSerializer
-    permission_classes = [IsAdminOrReadOnly]
 
 class PlayViewSet(viewsets.ModelViewSet):
     queryset = Play.objects.prefetch_related("genres", "actors")
     serializer_class = PlaySerializer
-    permission_classes = [IsAdminOrReadOnly]
 
 class PerformanceViewSet(viewsets.ModelViewSet):
     queryset = Performance.objects.select_related("play", "theatre_hall")
     serializer_class = PerformanceSerializer
-    permission_classes = [IsAdminOrReadOnly]
 
     @action(detail=True, methods=["get"])
     def seats(self, request, pk=None):
@@ -56,6 +50,8 @@ class ReservationViewSet(mixins.CreateModelMixin,
                          mixins.ListModelMixin,
                          viewsets.GenericViewSet):
     queryset = Reservation.objects.prefetch_related("tickets").select_related("user")
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
     serializer_class = ReservationSerializer
 
     def get_queryset(self):
@@ -88,7 +84,7 @@ class ReservationViewSet(mixins.CreateModelMixin,
                     )
         except IntegrityError:
             return Response(
-                {"detail": "Деякі з вибраних місць вже зайняті."},
+                {"detail": "Some of the selected seats are already taken."},
                 status=status.HTTP_409_CONFLICT,
             )
 
