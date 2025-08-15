@@ -1,144 +1,144 @@
 # Theatre API
 
-DRF API для театру з можливістю бронювання квитків на вистави.
+DRF API for theatre with ticket booking functionality.
 
-## Опис проекту
+## Project Description
 
-Цей проект представляє собою REST API для театру, який дозволяє:
-- Переглядати інформацію про театральні зали, жанри, акторів, п'єси та вистави
-- Бронювати квитки на вистави
-- Переглядати вільні та зайняті місця
-- Керувати резерваціями користувачів
+This project is a REST API for a theatre that allows:
+- Viewing information about theatre halls, genres, actors, plays, and performances
+- Booking tickets for performances
+- Viewing available and occupied seats
+- Managing user reservations
 
-## Технології
+## Technologies
 
 - Django 4.2.23
 - Django REST Framework 3.16.1
-- JWT аутентифікація (djangorestframework-simplejwt)
-- Swagger документація (drf-spectacular)
-- SQLite база даних
+- JWT authentication (djangorestframework-simplejwt)
+- Swagger documentation (drf-spectacular)
+- SQLite database
 
-## Встановлення та запуск
+## Installation and Setup
 
-1. Клонуйте репозиторій:
+1. Clone the repository:
 ```bash
 git clone <repository-url>
 cd theatre-api-project
 ```
 
-2. Створіть віртуальне середовище та активуйте його:
+2. Create and activate virtual environment:
 ```bash
 python -m venv venv
-source venv/bin/activate  # для Linux/Mac
-# або
-venv\Scripts\activate  # для Windows
+source venv/bin/activate  # for Linux/Mac
+# or
+venv\Scripts\activate  # for Windows
 ```
 
-3. Встановіть залежності:
+3. Install dependencies:
 ```bash
 pip install -r requirements.txt
 ```
 
-4. Виконайте міграції:
+4. Run migrations:
 ```bash
 python manage.py migrate
 ```
 
-5. Створіть суперкористувача:
+5. Create superuser:
 ```bash
 python manage.py createsuperuser
 ```
 
-6. Створіть тестові дані:
+6. Create sample data:
 ```bash
 python manage.py create_sample_data
 ```
 
-7. Запустіть сервер:
+7. Start the server:
 ```bash
 python manage.py runserver
 ```
 
 ## API Endpoints
 
-### Аутентифікація
-- `POST /api/user/register/` - Реєстрація нового користувача
-- `POST /api/user/token/` - Отримання JWT токену
-- `POST /api/user/token/refresh/` - Оновлення JWT токену
-- `GET /api/user/me/` - Інформація про поточного користувача
+### Authentication
+- `POST /api/user/register/` - Register new user
+- `POST /api/user/token/` - Get JWT token
+- `POST /api/user/token/refresh/` - Refresh JWT token
+- `GET /api/user/me/` - Current user information
 
-### Театральні зали
-- `GET /api/halls/` - Список всіх залів
-- `POST /api/halls/` - Створення нового залу (тільки для адміністраторів)
-- `GET /api/halls/{id}/` - Деталі залу
-- `PUT /api/halls/{id}/` - Оновлення залу (тільки для адміністраторів)
-- `DELETE /api/halls/{id}/` - Видалення залу (тільки для адміністраторів)
+### Theatre Halls
+- `GET /api/halls/` - List all halls
+- `POST /api/halls/` - Create new hall (admin only)
+- `GET /api/halls/{id}/` - Hall details
+- `PUT /api/halls/{id}/` - Update hall (admin only)
+- `DELETE /api/halls/{id}/` - Delete hall (admin only)
 
-### Жанри
-- `GET /api/genres/` - Список всіх жанрів
-- `POST /api/genres/` - Створення нового жанру (тільки для адміністраторів)
-- `GET /api/genres/{id}/` - Деталі жанру
-- `PUT /api/genres/{id}/` - Оновлення жанру (тільки для адміністраторів)
-- `DELETE /api/genres/{id}/` - Видалення жанру (тільки для адміністраторів)
+### Genres
+- `GET /api/genres/` - List all genres
+- `POST /api/genres/` - Create new genre (admin only)
+- `GET /api/genres/{id}/` - Genre details
+- `PUT /api/genres/{id}/` - Update genre (admin only)
+- `DELETE /api/genres/{id}/` - Delete genre (admin only)
 
-### Актори
-- `GET /api/actors/` - Список всіх акторів
-- `POST /api/actors/` - Створення нового актора (тільки для адміністраторів)
-- `GET /api/actors/{id}/` - Деталі актора
-- `PUT /api/actors/{id}/` - Оновлення актора (тільки для адміністраторів)
-- `DELETE /api/actors/{id}/` - Видалення актора (тільки для адміністраторів)
+### Actors
+- `GET /api/actors/` - List all actors
+- `POST /api/actors/` - Create new actor (admin only)
+- `GET /api/actors/{id}/` - Actor details
+- `PUT /api/actors/{id}/` - Update actor (admin only)
+- `DELETE /api/actors/{id}/` - Delete actor (admin only)
 
-### П'єси
-- `GET /api/plays/` - Список всіх п'єс
-- `POST /api/plays/` - Створення нової п'єси (тільки для адміністраторів)
-- `GET /api/plays/{id}/` - Деталі п'єси
-- `PUT /api/plays/{id}/` - Оновлення п'єси (тільки для адміністраторів)
-- `DELETE /api/plays/{id}/` - Видалення п'єси (тільки для адміністраторів)
+### Plays
+- `GET /api/plays/` - List all plays
+- `POST /api/plays/` - Create new play (admin only)
+- `GET /api/plays/{id}/` - Play details
+- `PUT /api/plays/{id}/` - Update play (admin only)
+- `DELETE /api/plays/{id}/` - Delete play (admin only)
 
-### Вистави
-- `GET /api/performances/` - Список всіх вистав
-- `POST /api/performances/` - Створення нової вистави (тільки для адміністраторів)
-- `GET /api/performances/{id}/` - Деталі вистави
-- `PUT /api/performances/{id}/` - Оновлення вистави (тільки для адміністраторів)
-- `DELETE /api/performances/{id}/` - Видалення вистави (тільки для адміністраторів)
-- `GET /api/performances/{id}/seats/` - Перегляд вільних та зайнятих місць
+### Performances
+- `GET /api/performances/` - List all performances
+- `POST /api/performances/` - Create new performance (admin only)
+- `GET /api/performances/{id}/` - Performance details
+- `PUT /api/performances/{id}/` - Update performance (admin only)
+- `DELETE /api/performances/{id}/` - Delete performance (admin only)
+- `GET /api/performances/{id}/seats/` - View available and occupied seats
 
-### Резервації
-- `GET /api/reservations/` - Список резервацій (тільки для авторизованих користувачів)
-- `POST /api/reservations/` - Створення нової резервації (тільки для авторизованих користувачів)
-- `GET /api/reservations/my/` - Мої резервації (тільки для авторизованих користувачів)
+### Reservations
+- `GET /api/reservations/` - List reservations (authenticated users only)
+- `POST /api/reservations/` - Create new reservation (authenticated users only)
+- `GET /api/reservations/my/` - My reservations (authenticated users only)
 
-## Документація API
+## API Documentation
 
-Swagger документація доступна за адресою: http://localhost:8000/api/docs/
+Swagger documentation is available at: http://localhost:8000/api/docs/
 
-## Приклади використання
+## Usage Examples
 
-### Реєстрація користувача
+### User Registration
 ```bash
 curl -X POST http://localhost:8000/api/user/register/ \
   -H "Content-Type: application/json" \
   -d '{"email": "user@example.com", "password": "password123", "first_name": "John", "last_name": "Doe"}'
 ```
 
-### Отримання JWT токену
+### Get JWT Token
 ```bash
 curl -X POST http://localhost:8000/api/user/token/ \
   -H "Content-Type: application/json" \
   -d '{"email": "user@example.com", "password": "password123"}'
 ```
 
-### Перегляд п'єс
+### View Plays
 ```bash
 curl http://localhost:8000/api/plays/
 ```
 
-### Перегляд вільних місць
+### View Available Seats
 ```bash
 curl http://localhost:8000/api/performances/1/seats/
 ```
 
-### Створення резервації
+### Create Reservation
 ```bash
 curl -X POST http://localhost:8000/api/reservations/ \
   -H "Content-Type: application/json" \
@@ -146,59 +146,89 @@ curl -X POST http://localhost:8000/api/reservations/ \
   -d '{"performance_id": 1, "seats": [{"row": 1, "seat": 1}, {"row": 1, "seat": 2}]}'
 ```
 
-### Перегляд моїх резервацій
+### View My Reservations
 ```bash
 curl -H "Authorization: Bearer YOUR_JWT_TOKEN" \
   http://localhost:8000/api/reservations/my/
 ```
 
-## Моделі даних
+## Data Models
 
 ### TheatreHall
-- `name` - Назва залу
-- `rows` - Кількість рядів
-- `seats_in_row` - Кількість місць у ряді
+- `name` - Hall name
+- `rows` - Number of rows
+- `seats_in_row` - Number of seats per row
 
 ### Genre
-- `name` - Назва жанру
+- `name` - Genre name
 
 ### Actor
-- `first_name` - Ім'я актора
-- `last_name` - Прізвище актора
+- `first_name` - Actor's first name
+- `last_name` - Actor's last name
 
 ### Play
-- `title` - Назва п'єси
-- `description` - Опис п'єси
-- `genres` - Жанри (ManyToMany з Genre)
-- `actors` - Актори (ManyToMany з Actor)
+- `title` - Play title
+- `description` - Play description
+- `genres` - Genres (ManyToMany with Genre)
+- `actors` - Actors (ManyToMany with Actor)
 
 ### Performance
-- `play` - П'єса (ForeignKey до Play)
-- `theatre_hall` - Театральний зал (ForeignKey до TheatreHall)
-- `show_time` - Час вистави
+- `play` - Play (ForeignKey to Play)
+- `theatre_hall` - Theatre hall (ForeignKey to TheatreHall)
+- `show_time` - Performance time
 
 ### Reservation
-- `created_at` - Час створення резервації
-- `user` - Користувач (ForeignKey до User)
+- `created_at` - Reservation creation time
+- `user` - User (ForeignKey to User)
 
 ### Ticket
-- `row` - Номер ряду
-- `seat` - Номер місця
-- `performance` - Вистава (ForeignKey до Performance)
-- `reservation` - Резервація (ForeignKey до Reservation)
+- `row` - Row number
+- `seat` - Seat number
+- `performance` - Performance (ForeignKey to Performance)
+- `reservation` - Reservation (ForeignKey to Reservation)
 
-## Особливості
+## Features
 
-- JWT аутентифікація з токенами доступу та оновлення
-- Автоматична валідація місць при бронюванні
-- Перевірка на дублювання місць
-- Обмеження швидкості запитів (rate limiting)
-- Swagger документація API
-- Різні рівні доступу для користувачів та адміністраторів
+- JWT authentication with access and refresh tokens
+- Automatic seat validation during booking
+- Duplicate seat prevention
+- Request rate limiting
+- Swagger API documentation
+- Different access levels for users and administrators
 
-## Тестування
+## Testing
 
-Для тестування API можна використовувати:
+For API testing you can use:
 - Swagger UI: http://localhost:8000/api/docs/
-- curl команди
-- Postman або інші API тестувальники 
+- curl commands
+- Postman or other API testing tools
+
+## Demo Script
+
+Run the demo script to see the API in action:
+```bash
+python demo_api.py
+```
+
+This script demonstrates:
+- User registration and authentication
+- Viewing plays and performances
+- Creating reservations
+- Seat validation
+- Error handling
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests for new functionality
+5. Submit a pull request
+
+## License
+
+This project is licensed under the MIT License.
+
+## Support
+
+If you have any questions or issues, please create an issue in the GitHub repository. 
