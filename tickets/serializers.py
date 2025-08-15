@@ -48,7 +48,7 @@ class PerformanceSerializer(serializers.ModelSerializer):
     play = PlaySerializer(read_only=True)
     play_id = serializers.PrimaryKeyRelatedField(
         queryset=Play.objects.all(),
-        source="plays",
+        source="play",
         write_only=True,
     )
     theatre_hall = TheatreHallSerializer(read_only=True)
